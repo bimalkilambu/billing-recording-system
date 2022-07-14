@@ -32,6 +32,11 @@ namespace BRS.Forms
                     Hide();
                     new MainWindow().Show();
                 }
+                else
+                {
+                    MessageBox.Show("Invalid passcode.", "Invalid", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    txtPassCode.Text = "";
+                }
             }
             else if(code.Length > 4)
             {

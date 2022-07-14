@@ -56,6 +56,34 @@ namespace BRS.Forms
 
                 lvPendingBills.Items.Add(item);
             }
+
+            CalculateTotalCreditAmount();
+        }
+
+        private void CalculateTotalCreditAmount()
+        {
+            int totalAmount = 0;
+
+            for (int i = 0; i < lvPendingBills.Items.Count; i++)
+            {
+                string amountString = lvPendingBills.Items[i].SubItems[5].Text;
+                int amount = string.IsNullOrEmpty(amountString) ? 0 : Convert.ToInt32(amountString);
+                totalAmount += amount;
+            }
+
+            lblTotalCredit.Text = "Total credit amount: " + totalAmount.ToString();
+        }
+
+        private bool PaymentValidation()
+        {
+            bool isValid = !string.IsNullOrEmpty(txtPaidDate.Text.Trim()) && !string.IsNullOrEmpty(txtPaidAmount.Text.Trim());
+
+            if (isValid && cmbPaymentType.SelectedIndex == 1)
+            {
+                isValid = !string.IsNullOrEmpty(txtBank.Text.Trim()) && !string.IsNullOrEmpty(txtChequeNo.Text.Trim());
+            }
+
+            return isValid;
         }
         #endregion
 
@@ -88,19 +116,30 @@ namespace BRS.Forms
 
         private void btnPay_Click(object sender, EventArgs e)
         {
-            int paidamount = Convert.ToInt32(txtPaidAmount.Text);
-
-            if (paidamount <= maxPayAmount)
+            if (PaymentValidation())
             {
-                string paidDate = txtDate.Text;
-                string bankName = txtBank.Text;
-                string chequeNo = txtChequeNo.Text;
+                int paidamount = Convert.ToInt32(txtPaidAmount.Text);
 
-                string sqlQuery = $"INSERT INTO Payments(BillId, PaidAmount, BankName, ChequeNo, PaidDate) VALUES({activeBillNo},{paidamount},'{bankName}','{chequeNo}','{paidDate}');UPDATE Bills SET PaidAmount = PaidAmount + {paidamount} WHERE BillId = {activeBillNo}; ";
-                sqliteHelper.ExecuteSql(sqlQuery);
-                ShowPaymentDetail(false);
-                LoadPendingBills();
-                txtBank.Text = txtChequeNo.Text = txtPaidAmount.Text = txtDate.Text = "";
+                if (paidamount <= maxPayAmount)
+                {
+                    string paidDate = txtPaidDate.Text;
+                    string bankName = txtBank.Text;
+                    string chequeNo = txtChequeNo.Text;
+
+                    string sqlQuery = $"INSERT INTO Payments(BillId, PaidAmount, BankName, ChequeNo, PaidDate) VALUES({activeBillNo},{paidamount},'{bankName}','{chequeNo}','{paidDate}');UPDATE Bills SET PaidAmount = PaidAmount + {paidamount} WHERE BillId = {activeBillNo}; ";
+                    sqliteHelper.ExecuteSql(sqlQuery);
+                    ShowPaymentDetail(false);
+                    LoadPendingBills();
+                    txtBank.Text = txtChequeNo.Text = txtPaidAmount.Text = txtPaidDate.Text = "";
+                }
+                else
+                {
+                    MessageBox.Show("Paid amount should not be greater than pending bill amount.", "Invalid", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+            }
+            else
+            {
+                MessageBox.Show("Please all the mandatory fields.", "Invalid", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
 

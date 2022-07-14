@@ -41,7 +41,7 @@ namespace BRS.Forms
             this.cmbPaymentType = new System.Windows.Forms.ComboBox();
             this.txtBank = new System.Windows.Forms.TextBox();
             this.txtPaidAmount = new System.Windows.Forms.TextBox();
-            this.txtDate = new System.Windows.Forms.TextBox();
+            this.txtPaidDate = new System.Windows.Forms.TextBox();
             this.txtChequeNo = new System.Windows.Forms.TextBox();
             this.btnPay = new System.Windows.Forms.Button();
             this.lblCheque = new System.Windows.Forms.Label();
@@ -53,6 +53,7 @@ namespace BRS.Forms
             this.label4 = new System.Windows.Forms.Label();
             this.lblVendor = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
+            this.lblTotalCredit = new System.Windows.Forms.Label();
             this.grpPaymentDetail.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -125,7 +126,7 @@ namespace BRS.Forms
             this.grpPaymentDetail.Controls.Add(this.cmbPaymentType);
             this.grpPaymentDetail.Controls.Add(this.txtBank);
             this.grpPaymentDetail.Controls.Add(this.txtPaidAmount);
-            this.grpPaymentDetail.Controls.Add(this.txtDate);
+            this.grpPaymentDetail.Controls.Add(this.txtPaidDate);
             this.grpPaymentDetail.Controls.Add(this.txtChequeNo);
             this.grpPaymentDetail.Controls.Add(this.btnPay);
             this.grpPaymentDetail.Controls.Add(this.lblCheque);
@@ -171,14 +172,14 @@ namespace BRS.Forms
             this.txtPaidAmount.TabIndex = 12;
             this.txtPaidAmount.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtPaidAmount_KeyPress);
             // 
-            // txtDate
+            // txtPaidDate
             // 
-            this.txtDate.Location = new System.Drawing.Point(76, 77);
-            this.txtDate.MaxLength = 10;
-            this.txtDate.Name = "txtDate";
-            this.txtDate.Size = new System.Drawing.Size(129, 20);
-            this.txtDate.TabIndex = 11;
-            this.txtDate.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtDate_KeyPress);
+            this.txtPaidDate.Location = new System.Drawing.Point(76, 77);
+            this.txtPaidDate.MaxLength = 10;
+            this.txtPaidDate.Name = "txtPaidDate";
+            this.txtPaidDate.Size = new System.Drawing.Size(129, 20);
+            this.txtPaidDate.TabIndex = 11;
+            this.txtPaidDate.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtDate_KeyPress);
             // 
             // txtChequeNo
             // 
@@ -203,9 +204,9 @@ namespace BRS.Forms
             this.lblCheque.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblCheque.Location = new System.Drawing.Point(561, 20);
             this.lblCheque.Name = "lblCheque";
-            this.lblCheque.Size = new System.Drawing.Size(74, 13);
+            this.lblCheque.Size = new System.Drawing.Size(79, 13);
             this.lblCheque.TabIndex = 8;
-            this.lblCheque.Text = "Cheque No:";
+            this.lblCheque.Text = "Cheque No*:";
             // 
             // lblBank
             // 
@@ -213,9 +214,9 @@ namespace BRS.Forms
             this.lblBank.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblBank.Location = new System.Drawing.Point(262, 80);
             this.lblBank.Name = "lblBank";
-            this.lblBank.Size = new System.Drawing.Size(76, 13);
+            this.lblBank.Size = new System.Drawing.Size(81, 13);
             this.lblBank.TabIndex = 7;
-            this.lblBank.Text = "Bank Name:";
+            this.lblBank.Text = "Bank Name*:";
             // 
             // label8
             // 
@@ -223,9 +224,9 @@ namespace BRS.Forms
             this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label8.Location = new System.Drawing.Point(262, 50);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(74, 13);
+            this.label8.Size = new System.Drawing.Size(79, 13);
             this.label8.TabIndex = 6;
-            this.label8.Text = "Paid amout:";
+            this.label8.Text = "Paid amout*:";
             // 
             // label7
             // 
@@ -243,9 +244,9 @@ namespace BRS.Forms
             this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label6.Location = new System.Drawing.Point(5, 80);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(65, 13);
+            this.label6.Size = new System.Drawing.Size(70, 13);
             this.label6.TabIndex = 4;
-            this.label6.Text = "Paid date:";
+            this.label6.Text = "Paid date*:";
             // 
             // lblManualBillNo
             // 
@@ -285,6 +286,15 @@ namespace BRS.Forms
             this.label2.TabIndex = 0;
             this.label2.Text = "Vendor:";
             // 
+            // lblTotalCredit
+            // 
+            this.lblTotalCredit.AutoSize = true;
+            this.lblTotalCredit.Location = new System.Drawing.Point(643, 3);
+            this.lblTotalCredit.Name = "lblTotalCredit";
+            this.lblTotalCredit.Size = new System.Drawing.Size(113, 13);
+            this.lblTotalCredit.TabIndex = 3;
+            this.lblTotalCredit.Text = "Total credit amount : 0";
+            // 
             // PendingBills
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -292,6 +302,7 @@ namespace BRS.Forms
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(197)))), ((int)(((byte)(226)))), ((int)(((byte)(252)))));
             this.ClientSize = new System.Drawing.Size(804, 441);
             this.ControlBox = false;
+            this.Controls.Add(this.lblTotalCredit);
             this.Controls.Add(this.grpPaymentDetail);
             this.Controls.Add(this.lvPendingBills);
             this.Controls.Add(this.label1);
@@ -326,7 +337,7 @@ namespace BRS.Forms
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox txtBank;
         private System.Windows.Forms.TextBox txtPaidAmount;
-        private System.Windows.Forms.TextBox txtDate;
+        private System.Windows.Forms.TextBox txtPaidDate;
         private System.Windows.Forms.TextBox txtChequeNo;
         private System.Windows.Forms.Button btnPay;
         private System.Windows.Forms.Label lblCheque;
@@ -334,5 +345,6 @@ namespace BRS.Forms
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.ComboBox cmbPaymentType;
+        private System.Windows.Forms.Label lblTotalCredit;
     }
 }

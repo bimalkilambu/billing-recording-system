@@ -27,6 +27,7 @@ namespace BRS.Forms
             GetVendorSuggestion();
         }
 
+        #region helper function
         private void GetProductSuggestion()
         {
             AutoCompleteStringCollection autoCompleteStringCollection = new AutoCompleteStringCollection();
@@ -69,6 +70,7 @@ namespace BRS.Forms
         private void LoadBillDetails(string billId)
         {
             ClearBillDetail();
+            ShowBillDetail(true);
             lvBillItemList.Items.Clear();
             activeBillId = billId;
 
@@ -205,7 +207,9 @@ namespace BRS.Forms
             lblCalculateTotalAmount.Text = "Total: " + totalAmount.ToString();
             lblCalculateTotalAmount.Visible = true;
         }
+        #endregion
 
+        #region event handlers
         private void btnNew_Click(object sender, EventArgs e)
         {
             string sqlQuery = "INSERT INTO Bills(BillId) VALUES(NULL); SELECT last_insert_rowid();";
@@ -272,7 +276,7 @@ namespace BRS.Forms
             string billId = bill[4].Text;
             LoadBillDetails(billId);
             activeBill = bill;
-            ShowBillDetail(true);
+            CalculateTotalAmount();
         }
 
         private void btnAddItem_Click(object sender, EventArgs e)
@@ -480,5 +484,6 @@ namespace BRS.Forms
                 e.Handled = true;
             }
         }
+        #endregion
     }
 }
